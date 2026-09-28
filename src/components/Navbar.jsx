@@ -1,14 +1,20 @@
+import { useState } from 'react'
 import { NavLink, Link } from 'react-router-dom'
 
 function Navbar() {
+  const [menuOpen, setMenuOpen] = useState(false)
+
+  const closeMenu = () => {
+    setMenuOpen(false)
+  }
+
   return (
     <nav className="main-navbar">
 
       <div className="container navbar-container">
 
         {/* LOGO */}
-
-        <Link to="/" className="navbar-brand">
+        <Link to="/" className="navbar-brand" onClick={closeMenu}>
 
           <img
             src="/projects/anjanaa-home-banner.png"
@@ -24,7 +30,6 @@ function Navbar() {
 
 
         {/* DESKTOP MENU */}
-
         <div className="navbar-menu">
 
           <NavLink
@@ -63,8 +68,6 @@ function Navbar() {
             Projects
           </NavLink>
 
-         
-
           <Link
             to="/contact"
             className="navbar-contact-button"
@@ -76,16 +79,13 @@ function Navbar() {
         </div>
 
 
-        {/* MOBILE MENU BUTTON */}
-
+        {/* MOBILE BUTTON */}
         <button
-          className="navbar-toggler"
           type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#mainNavbar"
-          aria-controls="mainNavbar"
-          aria-expanded="false"
+          className={`navbar-toggler ${menuOpen ? 'is-open' : ''}`}
+          onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle navigation"
+          aria-expanded={menuOpen}
         >
           <span></span>
           <span></span>
@@ -96,19 +96,14 @@ function Navbar() {
 
 
       {/* MOBILE MENU */}
-
-      <div
-        className="collapse navbar-mobile-menu"
-        id="mainNavbar"
-      >
+      <div className={`navbar-mobile-menu ${menuOpen ? 'open' : ''}`}>
 
         <div className="container">
 
           <NavLink
             to="/"
             className="mobile-navbar-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+            onClick={closeMenu}
           >
             Home
           </NavLink>
@@ -116,8 +111,7 @@ function Navbar() {
           <NavLink
             to="/about"
             className="mobile-navbar-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+            onClick={closeMenu}
           >
             About Us
           </NavLink>
@@ -125,8 +119,7 @@ function Navbar() {
           <NavLink
             to="/services"
             className="mobile-navbar-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+            onClick={closeMenu}
           >
             Services
           </NavLink>
@@ -134,18 +127,17 @@ function Navbar() {
           <NavLink
             to="/projects"
             className="mobile-navbar-link"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+            onClick={closeMenu}
           >
             Projects
           </NavLink>
 
           
+
           <NavLink
             to="/contact"
             className="mobile-navbar-contact"
-            data-bs-toggle="collapse"
-            data-bs-target="#mainNavbar"
+            onClick={closeMenu}
           >
             Contact Us
             <span>→</span>
